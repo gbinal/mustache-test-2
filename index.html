@@ -33,18 +33,41 @@
     <!-- MAIN CONTENT -->
     <div id="main_content_wrap" class="outer">
       <section id="main_content" class="inner">
-        <p>page content</p>
+              <!--Javascript that pulls JSON and renders it to the page-->
+      <script type="text/javascript">
+          function listAgencies()
+              {
+              $.getJSON('contacts.json', function(data) {          
+                   $.each(data['Web_Url'], function(key, val) {
+                          var template = $('#agencyListingTemplate').html();
+                          var html = Mustache.to_html(template, val);
+                          $('#agencyListing').append(html);;
+                      });  
+                  });        
+              }        
+      </script>
+      
+      <!--A template that provides layout for each entry in the JSON file-->
+      <script id="agencyListingTemplate" type="text/template">
+          <li>
+            <a href="{{url}}">{{Description}}</a>
+          </li>         
+      </script>
+      
+      <!--Always provide link to raw JSON file on Github-->
+      <ul id="agencyListing">
+      
+      </ul>
+      
+      <!--This actually runs the whole process-->
+      <script type="text/javascript">
+          listAgencies();
+      </script>
       </section>
-    </div>
+    </div>      </section>
 
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Mustache-test-2 maintained by <a href="https://github.com/gbinal">gbinal</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
     </div>
-
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
     
 
   </body>
